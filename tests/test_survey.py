@@ -14,9 +14,8 @@ def test_create_survey_response():
     assert response.elapsed.total_seconds() < 1.0
     try:
         data = response.json()
+        is_json = True
     except ValueError:
-        pytest.fail("Response is not valid JSON")
+        is_json = False
+    assert is_json, "Response is not valid JSON"
     assert isinstance(data, dict)
-
-
-
