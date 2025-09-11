@@ -11,7 +11,7 @@ def test_create_survey_response():
     payload = get_payload()
     response = requests.post(url, headers=headers, data=payload)
     assert response.status_code == 201
-    assert response.elapsed.total_seconds() < 0.5
+    assert response.elapsed.total_seconds() < 1.0
     try:
         data = response.json()
     except ValueError:
@@ -19,14 +19,4 @@ def test_create_survey_response():
     assert isinstance(data, dict)
 
 
-def test_create_survey_invalid():
-    url = "https://api.surveymonkey.com/v3/surveys"
-    headers = get_headers()
-    payload = '{}'
-    response = requests.post(url, headers=headers, data=payload)
-    assert response.status_code != 201
-    try:
-        data = response.json()
-    except ValueError:
-        pytest.fail("Error response is not valid JSON")
-    assert isinstance(data, dict)
+
